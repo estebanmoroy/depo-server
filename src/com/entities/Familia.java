@@ -19,7 +19,7 @@ public class Familia implements Serializable {
 	@SequenceGenerator(name="FAMILIAS_FAMID_GENERATOR", sequenceName="SEQ_FAM_ID", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FAMILIAS_FAMID_GENERATOR")
 	@Column(name="FAM_ID")
-	private long id;
+	private Long id;
 
 	@Column(name="FAM_CODIGO")
 	private String codigo;
@@ -43,39 +43,30 @@ public class Familia implements Serializable {
 		this.incompatible = incompatible;
 		this.nombre = nombre;
 	}
-
-	//Pasa un objeto Familia a String para imprimir en consola
+	
 	public String toString() {
-		StringBuilder result = new StringBuilder();
-		String newLine = System.getProperty("line.separator");
-		
-		result.append( "Familia {" );
-		result.append(newLine);
-
-		//determina campos de la clase
-		Field[] fields = this.getClass().getDeclaredFields();
-
-		//imprimir campos junto con sus valores
-		for ( Field field : fields  ) {
-			result.append("  ");
-			try {
-				result.append( field.getName() );
-				result.append(": ");
-				result.append( field.get(this) );
-			} catch ( IllegalAccessException ex ) {
-				System.out.println(ex);
-			}
-			result.append(newLine);
-		}
-		result.append("}");
-			return result.toString();
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
+	
+	@Override
+    public boolean equals(Object other) {
+        return (other != null && getClass() == other.getClass() && id != null)
+            ? id.equals(((Familia) other).id)
+            : (other == this);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) 
+            ? (getClass().hashCode() + id.hashCode())
+            : super.hashCode();
+    }
 		
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

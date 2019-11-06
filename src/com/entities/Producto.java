@@ -21,7 +21,7 @@ public class Producto implements Serializable {
 	@SequenceGenerator(name="PRODUCTOS_PROID_GENERATOR", sequenceName="SEQ_PRO_ID", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PRODUCTOS_PROID_GENERATOR")
 	@Column(name="PRO_ID")
-	private long id;
+	private Long id;
 
 	@Column(name="PRO_CODIGO")
 	private String codigo;
@@ -73,39 +73,29 @@ public class Producto implements Serializable {
 		this.volumen = volumen;
 	}
 
-	//Pasa un objeto Producto a String para imprimir en consola
 	public String toString() {
-		StringBuilder result = new StringBuilder();
-		String newLine = System.getProperty("line.separator");
-
-		result.append( "Producto {" );
-		result.append(newLine);
-
-		//determina campos de la clase
-		Field[] fields = this.getClass().getDeclaredFields();
-
-		//imprimir campos junto con sus valores
-		for ( Field field : fields  ) {
-			result.append("  ");
-			try {
-				result.append( field.getName() );
-				result.append(": ");
-				result.append( field.get(this) );
-			} catch ( IllegalAccessException ex ) {
-				System.out.println(ex);
-			}
-			result.append(newLine);
-		}
-		result.append("}");
-
-		return result.toString();
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
+	
+	@Override
+    public boolean equals(Object other) {
+        return (other != null && getClass() == other.getClass() && id != null)
+            ? id.equals(((Producto) other).id)
+            : (other == this);
+    }
 
-	public long getId() {
+    @Override
+    public int hashCode() {
+        return (id != null) 
+            ? (getClass().hashCode() + id.hashCode())
+            : super.hashCode();
+    }
+
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

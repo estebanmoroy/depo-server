@@ -162,6 +162,15 @@ public class ProductoBean implements ProductoBeanRemote {
 	}
 
 	@Override
+	public Producto obtenerPorId(Long id) {
+		TypedQuery<Producto> query=em
+				.createQuery("SELECT p FROM Producto p WHERE UPPER(p.id) LIKE:id", Producto.class)
+				.setParameter("id", id);
+
+		return query.getSingleResult();
+	}
+	
+	@Override
 	public List<Producto> obtenerTodosPorCodigo(String filtro) {
 		TypedQuery<Producto> query=em
 				.createQuery("SELECT p FROM Producto p WHERE UPPER(p.codigo) LIKE :codigo", Producto.class)
@@ -279,5 +288,5 @@ public class ProductoBean implements ProductoBeanRemote {
 		throw new ServicesException("Producto no se puede Eliminar porque existe en Pedidos, elimínelo previamente de Pedidos para luego Eliminar el mismo");
 		}
 	}
-
+	
 }

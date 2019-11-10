@@ -109,6 +109,15 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	}
 
 	@Override
+	public Familia obtenerPorId(Long id) {
+		TypedQuery<Familia> query=em
+				.createQuery("SELECT f FROM Familia f WHERE UPPER(f.id) LIKE:id", Familia.class)
+				.setParameter("id", id);
+
+		return query.getSingleResult();
+	}
+	
+	@Override
 	public List<Familia> obtenerTodosPorCodigo(String filtro) {
 		TypedQuery<Familia> query=em
 				.createQuery("SELECT f FROM Familia f WHERE UPPER(f.codigo) LIKE:codigo", Familia.class)

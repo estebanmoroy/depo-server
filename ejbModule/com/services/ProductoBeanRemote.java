@@ -36,6 +36,7 @@ public interface ProductoBeanRemote {
 	void asignarUsuario(Producto producto, Usuario usuario) throws ServicesException;
 	
 	List<Producto> obtenerTodos();
+	Producto obtenerPorId(Long id);
 	List<Producto> obtenerTodosPorCodigo(String filtro);
 	List<Producto> obtenerTodosPorNombre(String filtro);
 	

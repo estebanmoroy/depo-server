@@ -19,6 +19,7 @@ public interface FamiliaBeanRemote {
 	boolean eliminar(Long id/*, Usuario usuario*/) throws ServicesException;
 	
 	List<Familia> obtenerTodos();
+	Familia obtenerPorId(Long id);
 	List<Familia> obtenerTodosPorCodigo(String filtro);
 	List<Familia> obtenerTodosPorNombre(String filtro);
 	List<Familia> obtenerTodosPorDescripcion(String filtro);

@@ -27,6 +27,7 @@ public interface LoteBeanRemote {
 	boolean eliminar(Long id) throws ServicesException;
 	
 	List<Lote> obtenerTodos();
+	Lote obtenerPorId(Long id);
 	List<Lote> obtenerTodosPorCodigo(String filtro);
 	
 	void asignarProductoPorId(Long idLote, Long idProducto) throws ServicesException;

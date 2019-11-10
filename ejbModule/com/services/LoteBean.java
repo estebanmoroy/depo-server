@@ -117,6 +117,15 @@ public class LoteBean implements LoteBeanRemote {
 		TypedQuery<Lote> query = em.createQuery("SELECT l FROM Lote l", Lote.class);
 		return query.getResultList();
 	}
+	
+	@Override
+	public Lote obtenerPorId(Long id) {
+		TypedQuery<Lote> query=em
+				.createQuery("SELECT l FROM Lote l WHERE UPPER(l.id) LIKE:id", Lote.class)
+				.setParameter("id", id);
+
+		return query.getSingleResult();
+	}
 
 	@Override
 	public List<Lote> obtenerTodosPorCodigo(String filtro) {

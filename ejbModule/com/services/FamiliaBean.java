@@ -166,7 +166,14 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	public boolean validarModificacion(Familia familia) throws ServicesException {
 		ArrayList<Boolean> valoresValidaciones = new ArrayList<Boolean>();
 		try {
-			valoresValidaciones.add(!descripcionExiste(familia.getDescripcion()));
+			if (
+					familia.getDescripcion().equals(
+							obtenerPorId(familia.getId()).getDescripcion()
+					)) {
+				valoresValidaciones.add(true);
+			}else {
+				valoresValidaciones.add(!descripcionExiste(familia.getDescripcion()));
+			}
 			valoresValidaciones.add(!descripcionSuperaMaximoDeCaracteres(familia.getDescripcion()));
 			if (!valoresValidaciones.contains(false)) {
 				return true;

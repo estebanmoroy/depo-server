@@ -174,7 +174,11 @@ public class LoteBean implements LoteBeanRemote {
 		ArrayList<Boolean> valores = new ArrayList<Boolean>();
 
 		try {
-			valores.add(!codigoExiste(lote.getCodigo()));
+			if (lote.getCodigo().equals(obtenerPorId(lote.getId()).getCodigo())) {
+				valores.add(true);
+			}else {
+				valores.add(!codigoExiste(lote.getCodigo()));
+			}
 			valores.add(!fechaVencimientoEsMayor(lote.getFechaElaboracion(), lote.getFechaVencimiento()));
 			//Checkea si la lista no contiene ningun valor false
 			if (!valores.contains(false)) {
